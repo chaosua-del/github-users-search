@@ -1,5 +1,5 @@
 export const colors = {
-  background: 'white',
+  background: '#F9FAFC',
 
   sectionBackground: '#F9FAFC',
 
