@@ -1,0 +1,28 @@
+name: Preview Deployment
+
+on:
+  push:
+    branches: ["development"]
+
+jobs:
+  testing:
+    name: Preview env Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository on branch: ${{ github.ref }}"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          
+      - name: Make preview branch a full copy of development
+        run: |
+          git fetch origin
+          git checkout preview || git checkout -b preview
+          git reset --hard origin/development
+          git push origin preview --force
